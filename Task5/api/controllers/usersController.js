@@ -4,6 +4,12 @@ const { v4: uuidv4 } = require('uuid');
 const users = [];
 const hobbies = []
 
+function response(res,status,data,error){
+    res.statusCode = status;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ data: data, error: error }));
+}
+
 module.exports = {
     getAllUsers: (req, res) => {
         // Set headers
@@ -41,31 +47,21 @@ module.exports = {
 
         users.push(newUser);
         hobbies.push(newHobbies);
-
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ data: newUser, error: null }));
     
-        return res;
+        response(res, 200, newUser, null);
     },    
     deleteUser: (req, res, userId) => {
         const userIndex = users.findIndex(item => item.user.id === userId);
         const userhobbiesIndex = hobbies.findIndex(hobby => hobby.userId === userId);
-
-        res.setHeader("Content-Type", "application/json");
     
         if (userIndex === -1) {
-            res.statusCode = 404;
-            res.end(JSON.stringify({ data: null, error: `User with id ${userId} doesn't exist` }));
+            response(res, 404, null, `User with id ${userId} doesn't exist`)
         } else {
             users.splice(userIndex, 1);
             hobbies.splice(userhobbiesIndex, 1);
 
-            res.statusCode = 200;  
-            res.end(JSON.stringify({ data: {success: true}, error: null }));
+            response(res, 200, {success: true}, null)
         }
-
-        return res;
     },    
     getUserHobbies: (req, res, userId) => {
         const userHobbiesIndex = hobbies.findIndex(hobby => hobby.userId === userId);
@@ -87,20 +83,15 @@ module.exports = {
                 }
             };
 
-            res.statusCode = 200;            
             res.end(JSON.stringify({ data: responseData, error: null }));
         } else {
             res.statusCode = 404;  
             res.end(JSON.stringify({ data: null, error: `User with id ${userId} doesn't exist` }));
         }
-
-        return res;
     },       
     updateUserHobbies: (req, res, userId, body) => {
         const userIndex = users.findIndex(item => item.user.id === userId);
         const userHobbiesIndex = hobbies.findIndex(hobby => hobby.userId === userId);
-
-        res.setHeader("Content-Type", "application/json");
     
         if (userIndex !== -1) {
             const user = users[userIndex].user;
@@ -115,11 +106,9 @@ module.exports = {
             // Update hobbies list
             hobbies[userHobbiesIndex].hobbies = [... new Set([...existingHobbies, ...newHobbies])];
                 
-            res.statusCode = 200;           
-            res.end(JSON.stringify({ data: newHobbies, error: null }));
+            response(res, 200, newHobbies, null);
         } else {
-            res.statusCode = 404;           
-            res.end(JSON.stringify({ data: null, error: `User with id ${userId} doesn't exist` }));
+            response(res, 404, null, `User with id ${userId} doesn't exist`)     
         }
     }     
 };
