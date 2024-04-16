@@ -8,13 +8,14 @@
     "task1": "nodemon Task3/task1/EventEmitterTask.js",
     "task2": "nodemon Task3/task2/WithTimeTask.js",
     "task3": "nodemon Task3/task3/CSVReaderTask.js",
+    "task6": "ts-node Task6/index.ts",
     "test": "jest",
     "test:e2e": "jest --config=jest.config.e2e.js",
     "test:coverage": "jest --coverage",
     "startPM2": "pm2 start Task5/server.js --name ngmp-network-app",
     "stopPM2": "pm2 stop ngmp-network-app",
-    "start": "ts-node Task6/index.ts",
-    "stop": "pm2 stop ngmp-3layer-app"
+    "start": "ts-node Task7/SQL/index.ts",
+    "stop": ""
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,9 @@
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^20.12.7",
+    "@types/pg": "^8.11.5",
     "@types/supertest": "^6.0.2",
     "axios-mock-adapter": "^1.22.0",
     "jest": "^29.7.0",
@@ -32,13 +36,30 @@
     "ts-node": "^10.9.2"
   },
   "dependencies": {
+    "@mikro-orm/cli": "^6.2.1",
+    "@mikro-orm/core": "^6.2.1",
+    "@mikro-orm/migrations": "^6.2.1",
+    "@mikro-orm/postgresql": "^6.2.1",
+    "@mikro-orm/seeder": "^6.2.1",
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "csvtojson": "^2.0.10",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "joi": "^17.12.3",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.1",
     "node-fetch": "^3.3.2",
+    "pg": "^8.11.5",
+    "reflect-metadata": "^0.2.2",
     "typescript": "^5.4.4",
     "uuid": "^9.0.1"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./Task7/SQL/orm.ts",
+      "./Task7/SQL/orm.js"
+    ]
   }
 }
