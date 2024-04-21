@@ -9,13 +9,14 @@
     "task2": "nodemon Task3/task2/WithTimeTask.js",
     "task3": "nodemon Task3/task3/CSVReaderTask.js",
     "task6": "ts-node Task6/index.ts",
-    "test": "jest",
+    "test1": "jest",
     "test:e2e": "jest --config=jest.config.e2e.js",
     "test:coverage": "jest --coverage",
     "startPM2": "pm2 start Task5/server.js --name ngmp-network-app",
     "stopPM2": "pm2 stop ngmp-network-app",
-    "start": "ts-node Task8/index.ts",
-    "stop": ""
+    "start": "NODE_ENV=development ts-node Task9/index.ts",
+    "start:production": "NODE_ENV=production ts-node Task9/index.ts",
+    "test": "NODE_ENV=test ts-node Task9/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -58,7 +59,8 @@
     "pg": "^8.11.5",
     "reflect-metadata": "^0.2.2",
     "typescript": "^5.4.4",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "winston": "^3.13.0"
   },
   "mikro-orm": {
     "useTsNode": true,
